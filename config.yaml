@@ -1,3 +1,15 @@
+paths:
+  raw_dir: data/raw
+  processed_data: data/processed/processed_data.csv   # full parsed spans, as produced by data_prep.py
+  processed_sample: data/processed/sample.csv          # fixed stratified sample (not yet generated)
+  prompts_dir: prompts
+  raw_generations_dir: results/raw_generations
+  metrics_dir: results/metrics
+
+data:
+  n_samples: 600
+  seed: 42
+
 labels:
   - "Loaded Language"
   - "Name Calling, Labeling"
@@ -13,3 +25,37 @@ labels:
   - "Thought-terminating Cliches"
   - "Bandwagon, Reductio ad Hitlerum"
   - "Straw Men, Whataboutism, Red Herring"
+
+models:
+  - name: qwen2.5-3b
+    hf_id: Qwen/Qwen2.5-3B-Instruct
+    gated: false
+    load_in_4bit: true
+  - name: phi-3-mini
+    hf_id: microsoft/Phi-3-mini-4k-instruct
+    gated: false
+    load_in_4bit: true
+  - name: llama-3.2-3b
+    hf_id: meta-llama/Llama-3.2-3B-Instruct
+    gated: true
+    load_in_4bit: true
+
+prompt_strategies:
+  - standard
+  - role_based
+  - chain_of_thought
+  - structured_output
+ 
+generation:
+  greedy:
+    do_sample: false
+    max_new_tokens: 150
+  stochastic:
+    do_sample: true
+    temperature: 0.7
+    max_new_tokens: 150
+    k_runs: 5
+ 
+evaluation:
+  bootstrap_iterations: 1000
+  bootstrap_seed: 123

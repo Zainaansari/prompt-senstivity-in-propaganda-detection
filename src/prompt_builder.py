@@ -1,17 +1,11 @@
 import os
 from pathlib import Path
-
-import yaml
-
-
-def _project_root() -> Path:
-    """Return the repository root independent of the current working directory."""
-    return Path(__file__).resolve().parents[1]
+from utils import get_project_root, load_config
 
 
 def load_template(strategy: str, prompts_dir: str = "prompts") -> str:
     """Reads one template file (e.g. 'standard') and returns its raw text."""
-    project_root = _project_root()
+    project_root = get_project_root()
     prompts_path = Path(prompts_dir)
 
     if not prompts_path.is_absolute():
@@ -36,10 +30,8 @@ def build_prompt(strategy: str, span_text: str, labels: list, prompts_dir: str =
 
 
 if __name__ == "__main__":
-    # Load labels and strategy list from config, instead of hardcoding them here
-    config_path = _project_root() / "config.yaml"
-    with config_path.open("r", encoding="utf-8") as f:
-        config = yaml.safe_load(f)
+
+    config = load_config()
 
     demo_labels = config["labels"]
 
