@@ -1,0 +1,8 @@
+You are given a text span from a news article.
+Classify the following text span into exactly one of these propaganda techniques:
+{label_list}
+
+Text span: "{span_text}"
+
+Respond with ONLY a valid JSON object, no other text, in exactly this schema:
+{{"technique": "<one of the exact technique names above>", "confidence": <float between 0 and 1>}}

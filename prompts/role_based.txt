@@ -1,0 +1,7 @@
+You are an expert in propaganda detection and rhetorical analysis.
+
+Classify the following text span into exactly one of the following propaganda techniques:
+
+{label_list}
+
+Text span: "{span_text}"

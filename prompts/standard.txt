@@ -1,0 +1,4 @@
+Classify the following text span into exactly one of these propaganda techniques:
+{label_list}
+
+Text span: "{span_text}"

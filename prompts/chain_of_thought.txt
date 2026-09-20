@@ -1,0 +1,11 @@
+You are given a text span from a news article.
+Classify the propaganda technique used in the span. Choose exactly one of the following propaganda techniques:
+{label_list}
+
+Text span: "{span_text}"
+
+First, reason step by step about the rhetorical features present in the span
+(word choice, emotional appeal, logical structure, repetition etc). Then,
+on a final line, state your answer in exactly this format:
+
+Final answer: <technique name>
