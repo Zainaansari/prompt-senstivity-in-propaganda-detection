@@ -11,20 +11,20 @@ data:
   seed: 42
 
 labels:
-  - "Loaded Language"
-  - "Name Calling, Labeling"
-  - "Repetition"
-  - "Exaggeration, Minimization"
-  - "Doubt"
-  - "Appeal to Fear/Prejudice"
-  - "Flag-Waving"
-  - "Causal Oversimplification"
-  - "Slogans"
-  - "Appeal to Authority"
-  - "Black-and-White Fallacy"
-  - "Thought-terminating Cliches"
-  - "Bandwagon, Reductio ad Hitlerum"
-  - "Straw Men, Whataboutism, Red Herring"
+  - Loaded Language
+  - Name Calling, Labeling
+  - Repetition
+  - Exaggeration, Minimization
+  - Doubt
+  - Appeal to Fear/Prejudice
+  - Flag-Waving
+  - Causal Oversimplification
+  - Slogans
+  - Appeal to Authority
+  - Black-and-White Fallacy
+  - Thought-terminating Cliches
+  - Bandwagon, Reductio ad Hitlerum
+  - Straw Men, Whataboutism, Red Herring
 
 models:
   - name: qwen2.5-3b
@@ -45,17 +45,17 @@ prompt_strategies:
   - role_based
   - chain_of_thought
   - structured_output
- 
+
 generation:
   greedy:
     do_sample: false
-    max_new_tokens: 150
+    max_new_tokens: 256
   stochastic:
     do_sample: true
     temperature: 0.7
-    max_new_tokens: 150
+    max_new_tokens: 256
     k_runs: 5
- 
+
 evaluation:
   bootstrap_iterations: 1000
   bootstrap_seed: 123

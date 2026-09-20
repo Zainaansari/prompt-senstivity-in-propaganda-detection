@@ -53,7 +53,7 @@ def generate(
     return response, elapsed
 
 
-def run_pilot(model_key: str = "qwen2.5-3b", config_path: str = "config.yaml"):
+def run_pilot(model_key: str = "qwen2.5-3b"):
     config = load_config()
     labels = config["labels"]
     model_cfg = next(m for m in config["models"] if m["name"] == model_key)
@@ -63,7 +63,7 @@ def run_pilot(model_key: str = "qwen2.5-3b", config_path: str = "config.yaml"):
     model, tokenizer = load_model(model_id)
     print("Model loaded.\n")
 
-    df = pd.read_csv(config["paths"]["processed_sample"])
+    df = pd.read_csv(config["paths"]["processed_data"])
     real_span = df.iloc[0]["text_spans"]
     gold_label = df.iloc[0]["technique"]
 
@@ -75,7 +75,7 @@ def run_pilot(model_key: str = "qwen2.5-3b", config_path: str = "config.yaml"):
     for strategy in config["prompt_strategies"]:
         prompt = build_prompt(strategy, real_span, labels)
         response, elapsed = generate(
-            model, tokenizer, prompt, do_sample=False, max_new_tokens=150
+            model, tokenizer, prompt, do_sample=False, max_new_tokens=config["generation"]["greedy"]["max_new_tokens"]
         )
         print(f"\n--- {strategy} (greedy, {elapsed:.1f}s) ---")
         print(response)
@@ -84,7 +84,7 @@ def run_pilot(model_key: str = "qwen2.5-3b", config_path: str = "config.yaml"):
     print("\n" + "=" * 60)
     prompt = build_prompt("standard", real_span, labels)
     response, elapsed = generate(
-        model, tokenizer, prompt, do_sample=True, temperature=0.7, max_new_tokens=150
+        model, tokenizer, prompt, do_sample=True, temperature=0.7, max_new_tokens=config["generation"]["greedy"]["max_new_tokens"]
     )
     print(f"\n--- standard (stochastic, temp=0.7, {elapsed:.1f}s) ---")
     print(response)
